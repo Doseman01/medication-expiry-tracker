@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medication List</title>
+</head>
+<body>
+    <h1>Medications</h1>
+    <ul>
+        {% for medication in medications %}
+            <li>{{ medication.name }} - Expiry: {{ medication.expiry_date }}</li>
+        {% empty %}
+            <li>No medications found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
