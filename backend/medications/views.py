@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Medication
 from .serializers import MedicationSerializer
+from datetime import date, timedelta
 
 # HTML View (for rendering template)
 def medication_list(request):
@@ -48,4 +49,19 @@ def medication_detail_api(request, pk):
     elif request.method == 'DELETE':
         medication.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# REST API View – Check medications expiring soon
+@api_view(['GET'])
+def expiring_medications(request):
+    """
+    Return medications expiring within the next `days` (default 30).
+    Use /medications/api/expiring/?days=60 for custom days filter.
+    """
+    days = int(request.GET.get('days', 30))  # default to 30 days
+    today = date.today()
+    upcoming = today + timedelta(days=days)
+    medications = Medication.objects.filter(expiration_date__lte=upcoming)
+    serializer = MedicationSerializer(medications, many=True)
+    return Response(serializer.data)
 
