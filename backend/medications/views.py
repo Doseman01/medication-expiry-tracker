@@ -6,8 +6,11 @@ from rest_framework import status
 from .models import Medication
 from .serializers import MedicationSerializer
 from datetime import date, timedelta
+from django.contrib.auth.decorators import login_required
+
 
 # HTML View (for rendering template)
+
 def medication_list(request):
     medications = Medication.objects.all()
     return render(request, 'medications/medication_list.html', {'medications': medications})
