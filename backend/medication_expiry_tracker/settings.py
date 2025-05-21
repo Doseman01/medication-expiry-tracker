@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-5j$s9(1$s7s@21*k9s!ygukg_9ay8ej)%pexq979rmvu8st@nq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOW_ALL_ORIGINS = True  # For development only!
+
 ALLOWED_HOSTS = []
 
 LOGIN_URL = '/users/login/'
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'medication_expiry_tracker.urls'
